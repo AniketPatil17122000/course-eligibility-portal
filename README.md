@@ -2,6 +2,11 @@
 
 A web-based application that evaluates student admission eligibility based on personal details, academic marks, entrance examination results, and selected courses.
 
+
+## Repository
+
+[Course Eligibility Portal](https://github.com/AniketPatil17122000/course-eligibility-portal.git)
+
 ## Features
 
 - Student registration with form validation.
