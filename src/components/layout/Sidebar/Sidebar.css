@@ -1,0 +1,190 @@
+   /* SIDEBAR MENU  */
+
+   /* .sidebarImage_config{
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  z-index: 996;
+  transition: all 0.3s;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #aab7cf transparent;
+  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+  background-image: url("../src/assets/img/sidebar-bg.jpg");
+    background-color: rgba(17, 31, 54, 0.95);
+  background-blend-mode: overlay;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+   :root {
+     --primary-gradient: linear-gradient(125.97deg, #4369F2 15.06%, #4369F2 91.05%);
+   }
+
+   .sidebarImage_config {
+     position: fixed;
+     top: 60px;
+     /* height of header */
+     left: 0;
+     bottom: 0;
+     width: 250px;
+     z-index: 1000;
+     transition: all 0.3s ease;
+
+     overflow-y: auto;
+     scrollbar-width: thin;
+
+     background-image: url("../src/assets/img/sidebar-bg.webp");
+     background-color: rgba(17, 31, 54, 0.95);
+     background-blend-mode: overlay;
+     background-size: cover;
+   }
+
+   .sidebar-scroll {
+     height: 100%;
+     overflow-y: auto;
+     overflow-x: hidden;
+   
+   }
+
+   :where(.css-dev-only-do-not-override-1iph5z3).ant-menu-submenu-popup .ant-menu-vertical.ant-menu-sub:not([class*='-active']) {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+   /* Optional: smooth scrollbar */
+   .sidebar-scroll::-webkit-scrollbar {
+     width: 6px;
+     
+   }
+
+   .sidebar-scroll::-webkit-scrollbar-thumb {
+     background-color: rgba(255, 255, 255, 0.3);
+     border-radius: 4px;
+     
+     
+   }
+
+
+   .custom-sidebar-menu {
+     background: transparent !important;
+     
+   }
+
+   .custom-sidebar-menu .ant-menu-item {
+     margin: 4px 8px;
+     border-radius: 8px;
+     transition: background 0.25s ease;
+   }
+
+   /* Hover + Active + Selected  */
+   .custom-sidebar-menu .ant-menu-item:hover,
+   .custom-sidebar-menu .ant-menu-item:active,
+   .custom-sidebar-menu .ant-menu-item-selected {
+     /* background: linear-gradient(
+    125.97deg,
+    #4369F2 15.06%,
+    #4369F2 91.05%
+  ) !important; */
+     background: var(--primary-gradient) !important
+   }
+
+   .custom-sidebar-menu .ant-menu-submenu-title {
+     background: transparent;
+     margin: 4px 8px;
+     border-radius: 8px;
+     transition: background 0.25s ease;
+   }
+
+   /* Hover + Active + Open (PARENT MENU) */
+   .custom-sidebar-menu .ant-menu-submenu-title:hover,
+   .custom-sidebar-menu .ant-menu-submenu-title:active,
+   .custom-sidebar-menu .ant-menu-submenu-selected>.ant-menu-submenu-title,
+   .custom-sidebar-menu .ant-menu-submenu-open>.ant-menu-submenu-title {
+     /* background: linear-gradient(
+    125.97deg,
+    #4369F2 15.06%,
+    #4369F2 91.05%
+  ) !important; */
+     background: var(--primary-gradient) !important
+   }
+
+   .custom-sidebar-menu .ant-menu-sub {
+     background: transparent !important;
+     
+
+   }
+
+   .custom-sidebar-menu .ant-menu-sub .ant-menu-item {
+     margin: 2px 12px;
+     border-radius: 6px;
+   }
+
+   .custom-sidebar-menu .ant-menu-sub .ant-menu-item:hover,
+   .custom-sidebar-menu .ant-menu-sub .ant-menu-item:active,
+   .custom-sidebar-menu .ant-menu-sub .ant-menu-item-selected {
+     background: #97aad48c !important;
+     width: 93%;
+   
+     
+   }
+
+   .custom-sidebar-menu .ant-menu-inline {
+     border-right: none;
+     
+   }
+
+   .custom-sidebar-menu .ant-menu-item,
+   .custom-sidebar-menu .ant-menu-submenu-title {
+     transition: background 0.25s ease;
+     width: 93%,
+       
+   }
+
+   .custom-sidebar-menu .ant-menu-title-content {
+     white-space: normal;
+     line-height: 18px;
+   
+   }
+
+   .custom-sidebar-menu .ant-menu-item,
+   .custom-sidebar-menu .ant-menu-submenu-title {
+     /* 
+      height: auto !important;
+      min-height: 40px;
+      line-height: normal !important;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    */
+      
+     display: flex;
+     align-items: center;
+   }
+
+
+   /* Default desktop */
+   .main-layout {
+     transition: margin-left 0.3s ease;
+   }
+
+   @media (max-width: 991px) {
+
+     .sidebar-open,
+     .sidebar-collapsed {
+       margin-left: 70px !important;
+     }
+   }
+
+   @media (min-width: 992px) {
+     .sidebar-open {
+       margin-left: 250px;
+       
+     }
+
+     .sidebar-collapsed {
+       margin-left: 70px;
+       
+     }
+   }
