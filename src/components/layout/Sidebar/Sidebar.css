@@ -36,7 +36,7 @@
      overflow-y: auto;
      scrollbar-width: thin;
 
-  background-image: url("./assets/img/sidebar-bg.webp");
+     /* background-image: url("../src/assets/img/sidebar-bg.webp"); */
      background-color: rgba(17, 31, 54, 0.95);
      background-blend-mode: overlay;
      background-size: cover;
