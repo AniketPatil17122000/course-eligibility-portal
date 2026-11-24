@@ -1,6 +1,8 @@
 
-import { Card, Col, Row, Statistic } from "antd";
-import grddd from "../../assets/grddd.jpeg"
+import { useEffect, useState } from "react";
+import { Card, Col, Row, Statistic, Spin, message } from "antd";
+
+import grddd from "../../assets/grddd.jpeg";
 import {
     TeamOutlined,
     CheckCircleOutlined,
@@ -9,7 +11,108 @@ import {
     ArrowRightOutlined,
 } from "@ant-design/icons";
 
+import { Doughnut, Bar } from "react-chartjs-2";
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+} from "chart.js";
+
+import { getStudentHistory } from "../../services/studentService";
+
+ChartJS.register(
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement
+);
+
+type StudentRecord = Awaited<ReturnType<typeof getStudentHistory>>[number];
+
 const Dashboard = () => {
+    const [students, setStudents] = useState<StudentRecord[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    const getDashboardData = async () => {
+        try {
+            setLoading(true);
+            const response = await getStudentHistory();
+            setStudents(response);
+        } catch (error) {
+            message.error("Unable to load dashboard data");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getDashboardData();
+    }, []);
+
+    const totalStudents = students.length;
+
+    const eligibleStudents = students.filter(
+        (item) => item.isEligible
+    ).length;
+
+    const notEligibleStudents = students.filter(
+        (item) => !item.isEligible
+    ).length;
+
+    const courseCounts = students.reduce<Record<string, number>>(
+        (acc, item) => {
+            acc[item.desiredCourse] = (acc[item.desiredCourse] || 0) + 1;
+            return acc;
+        },
+        {}
+    );
+
+    const doughnutData = {
+        labels: ["Eligible", "Not Eligible"],
+        datasets: [
+            {
+                data: [eligibleStudents, notEligibleStudents],
+                backgroundColor: ["#15966b", "#dc5145"],
+                borderWidth: 0,
+            },
+        ],
+    };
+
+    const barData = {
+        labels: Object.keys(courseCounts).map((course) =>
+    course
+        .replace("Computer Science Engineering", "Computer Science")
+        .replace("Mechanical Engineering", "Mechanical")
+        .replace("Electrical Engineering", "Electrical")
+        .replace("Civil Engineering", "Civil")
+        .replace("Electronics & Communication", "Electronics")
+),
+        datasets: [
+            {
+                label: "Applications",
+                data: Object.values(courseCounts),
+                backgroundColor: "#3157a4",
+                borderRadius: 6,
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: "bottom" as const,
+            },
+        },
+    };
+
     return (
         <div id="main" className="main">
             <div className="page-header">
@@ -25,176 +128,217 @@ const Dashboard = () => {
                 </div>
             </div>
 
-
             <section className="section">
-                <Row gutter={[16, 16]} align="stretch">
+                <Spin spinning={loading}>
+                    <Row gutter={[16, 16]} align="stretch">
 
-                    {/* Left Side - Cards and Welcome */}
-                    <Col xs={24} xl={16}>
-                        <div className="d-flex flex-column h-100">
+                        <Col xs={24} xl={16}>
+                            <div className="d-flex flex-column h-100">
 
-                            {/* Statistics Cards */}
-                            <Row gutter={[16, 16]}>
-                                <Col xs={24} sm={12}>
-                                    <Card
-                                        bordered={false}
-                                        className="h-100"
-                                        style={{
-                                            background: "#e8efff",
-                                            borderLeft: "5px solid #3157a4",
-                                            borderRadius: 10,
-                                        }}
-                                    >
-                                        <Statistic
-                                            title="Total Applications"
-                                            value={0}
-                                            prefix={<FileTextOutlined />}
-                                            valueStyle={{ color: "#24488f" }}
-                                        />
-                                    </Card>
-                                </Col>
-
-                                <Col xs={24} sm={12}>
-                                    <Card
-                                        bordered={false}
-                                        className="h-100"
-                                        style={{
-                                            background: "#e6f5f0",
-                                            borderLeft: "5px solid #15966b",
-                                            borderRadius: 10,
-                                        }}
-                                    >
-                                        <Statistic
-                                            title="Total Students"
-                                            value={0}
-                                            prefix={<TeamOutlined />}
-                                            valueStyle={{ color: "#087a55" }}
-                                        />
-                                    </Card>
-                                </Col>
-
-                                <Col xs={24} sm={12}>
-                                    <Card
-                                        bordered={false}
-                                        className="h-100"
-                                        style={{
-                                            background: "#e8f5e9",
-                                            borderLeft: "5px solid #2e9b50",
-                                            borderRadius: 10,
-                                        }}
-                                    >
-                                        <Statistic
-                                            title="Eligible Students"
-                                            value={0}
-                                            prefix={<CheckCircleOutlined />}
-                                            valueStyle={{ color: "#21813d" }}
-                                        />
-                                    </Card>
-                                </Col>
-
-                                <Col xs={24} sm={12}>
-                                    <Card
-                                        bordered={false}
-                                        className="h-100"
-                                        style={{
-                                            background: "#fff0ed",
-                                            borderLeft: "5px solid #dc5145",
-                                            borderRadius: 10,
-                                        }}
-                                    >
-                                        <Statistic
-                                            title="Not Eligible"
-                                            value={0}
-                                            prefix={<CloseCircleOutlined />}
-                                            valueStyle={{ color: "#c7352b" }}
-                                        />
-                                    </Card>
-                                </Col>
-                            </Row>
-
-                            {/* Welcome Banner */}
-
-                            <Card
-                                className="mt-4 flex-grow-1"
-                                bordered={false}
-                                style={{
-                                    background: "linear-gradient(120deg, #101b33, #244879)",
-                                    borderRadius: 10,
-                                    overflow: "hidden",
-                                }}
-                            >
-                                <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center">
-
-                                    <div className="me-sm-4 mb-3 mb-sm-0">
-                                        <FileTextOutlined
-                                            style={{ fontSize: 45, color: "#ddb937" }}
-                                        />
-                                    </div>
-
-                                    <div className="flex-grow-1 w-100" style={{ minWidth: 0 }}>
-                                        <h4 className="text-white fw-bold mb-2">
-                                            Welcome to Campus Portal
-                                        </h4>
-
-                                        <p className="mb-3 text-wrap" style={{ color: "#d6deed" }}>
-                                            Manage student applications, evaluate admission
-                                            eligibility and track submission history from one place.
-                                        </p>
-
-                                        <span
-                                            className="badge px-3 py-2 text-wrap text-start"
+                                {/* Statistics Cards */}
+                                <Row gutter={[16, 16]}>
+                                    <Col xs={24} sm={12}>
+                                        <Card
+                                            bordered={false}
+                                            className="h-100"
                                             style={{
-                                                background: "#ddb937",
-                                                color: "#101b33",
-                                                fontSize: 13,
-                                                whiteSpace: "normal",
+                                                background: "#e8efff",
+                                                borderLeft: "5px solid #3157a4",
+                                                borderRadius: 10,
                                             }}
                                         >
-                                            Your Admission Management Dashboard
-                                            <ArrowRightOutlined className="ms-2" />
-                                        </span>
-                                    </div>
+                                            <Statistic
+                                                title="Total Applications"
+                                                value={totalStudents}
+                                                prefix={<FileTextOutlined />}
+                                                valueStyle={{ color: "#24488f" }}
+                                            />
+                                        </Card>
+                                    </Col>
 
+                                    <Col xs={24} sm={12}>
+                                        <Card
+                                            bordered={false}
+                                            className="h-100"
+                                            style={{
+                                                background: "#e6f5f0",
+                                                borderLeft: "5px solid #15966b",
+                                                borderRadius: 10,
+                                            }}
+                                        >
+                                            <Statistic
+                                                title="Total Students"
+                                                value={totalStudents}
+                                                prefix={<TeamOutlined />}
+                                                valueStyle={{ color: "#087a55" }}
+                                            />
+                                        </Card>
+                                    </Col>
+
+                                    <Col xs={24} sm={12}>
+                                        <Card
+                                            bordered={false}
+                                            className="h-100"
+                                            style={{
+                                                background: "#e8f5e9",
+                                                borderLeft: "5px solid #2e9b50",
+                                                borderRadius: 10,
+                                            }}
+                                        >
+                                            <Statistic
+                                                title="Eligible Students"
+                                                value={eligibleStudents}
+                                                prefix={<CheckCircleOutlined />}
+                                                valueStyle={{ color: "#21813d" }}
+                                            />
+                                        </Card>
+                                    </Col>
+
+                                    <Col xs={24} sm={12}>
+                                        <Card
+                                            bordered={false}
+                                            className="h-100"
+                                            style={{
+                                                background: "#fff0ed",
+                                                borderLeft: "5px solid #dc5145",
+                                                borderRadius: 10,
+                                            }}
+                                        >
+                                            <Statistic
+                                                title="Not Eligible"
+                                                value={notEligibleStudents}
+                                                prefix={<CloseCircleOutlined />}
+                                                valueStyle={{ color: "#c7352b" }}
+                                            />
+                                        </Card>
+                                    </Col>
+                                </Row>
+
+                                {/* Welcome Banner */}
+                                <Card
+                                    className="mt-4 flex-grow-1"
+                                    bordered={false}
+                                    style={{
+                                        background: "linear-gradient(120deg, #101b33, #244879)",
+                                        borderRadius: 10,
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center">
+                                        <div className="me-sm-4 mb-3 mb-sm-0">
+                                            <FileTextOutlined
+                                                style={{ fontSize: 45, color: "#ddb937" }}
+                                            />
+                                        </div>
+
+                                        <div className="flex-grow-1 w-100" style={{ minWidth: 0 }}>
+                                            <h4 className="text-white fw-bold mb-2">
+                                                Welcome to Campus Portal
+                                            </h4>
+
+                                            <p className="mb-3 text-wrap" style={{ color: "#d6deed" }}>
+                                                Manage student applications, evaluate admission
+                                                eligibility and track submission history from one place.
+                                            </p>
+
+                                            <span
+                                                className="badge px-3 py-2 text-wrap text-start"
+                                                style={{
+                                                    background: "#ddb937",
+                                                    color: "#101b33",
+                                                    fontSize: 13,
+                                                    whiteSpace: "normal",
+                                                }}
+                                            >
+                                                Your Admission Management Dashboard
+                                                <ArrowRightOutlined className="ms-2" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </Card>
+                            </div>
+                        </Col>
+
+                        {/* Graduation Image */}
+                        <Col xs={24} xl={8}>
+                            <div
+                                className="position-relative overflow-hidden rounded-3 h-100"
+                                style={{ minHeight: 450 }}
+                            >
+                                <img
+                                    src={grddd}
+                                    alt="University students celebrating graduation"
+                                    className="position-absolute top-0 start-0 w-100 h-100"
+                                    style={{ objectFit: "cover" }}
+                                />
+
+                                <div
+                                    className="position-absolute bottom-0 start-0 w-100 p-4"
+                                    style={{
+                                        background: "linear-gradient(transparent, rgba(10,25,50,0.95))",
+                                    }}
+                                >
+                                    <h3 className="text-white fw-bold mb-2">
+                                        Building a Brighter Future
+                                    </h3>
+
+                                    <p className="text-white mb-0">
+                                        Your Admission, Our Priority
+                                    </p>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+
+                    {/* Dashboard Charts */}
+                    <Row gutter={[16, 16]} className="mt-3">
+                        <Col xs={24} lg={10}>
+                            <Card
+                                title="Eligibility Overview"
+                                bordered={false}
+                                className="h-100"
+                            >
+                                <div style={{ height: 280 }}>
+                                    <Doughnut
+                                        data={doughnutData}
+                                        options={chartOptions}
+                                    />
                                 </div>
                             </Card>
+                        </Col>
 
-
-                        </div>
-                    </Col>
-
-                    {/* Right Side - Full Vertical Image */}
-                    <Col xs={24} xl={8}>
-                        <div
-                            className="position-relative overflow-hidden rounded-3 h-100"
-                            style={{ minHeight: 450 }}
-                        >
-                            <img
-                                src={grddd}
-                                alt="University students celebrating graduation"
-                                className="position-absolute top-0 start-0 w-100 h-100"
-                                style={{ objectFit: "cover" }}
-                            />
-
-                            <div
-                                className="position-absolute bottom-0 start-0 w-100 p-4"
-                                style={{
-                                    background: "linear-gradient(transparent, rgba(10,25,50,0.95))",
-                                }}
+                        <Col xs={24} lg={14}>
+                            <Card
+                                title="Course-wise Applications"
+                                bordered={false}
+                                className="h-100"
                             >
-                                <h3 className="text-white fw-bold mb-2">
-                                    Building a Brighter Future
-                                </h3>
-
-                                <p className="text-white mb-0">
-                                    Your Admission, Our Priority
-                                </p>
-                            </div>
-                        </div>
-                    </Col>
-
-                </Row>
+                                <div style={{ height: 280 }}>
+                                    <Bar
+                                        data={barData}
+                                        options={{
+                                            ...chartOptions,
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                },
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    ticks: {
+                                                        precision: 0,
+                                                    },
+                                                },
+                                            },
+                                        }}
+                                    />
+                                </div>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Spin>
             </section>
-
         </div>
     );
 };

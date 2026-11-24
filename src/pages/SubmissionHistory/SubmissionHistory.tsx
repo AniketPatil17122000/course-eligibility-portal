@@ -7,6 +7,7 @@ import { Form } from "react-bootstrap";
 import { DatePicker, Input } from "antd";
 import { formatDate, utilLog } from "../../utils/utils";
 import type { Submission } from "../../interfaces/interfaces";
+import { CSVLink } from "react-csv";
 
 import dayjs from "dayjs";
 
@@ -16,7 +17,7 @@ import TableWrapper from "../../components/common/TableWrapper";
 import { UseSubmissionHistoryViewModel } from "./UseSubmissionHistoryViewModel";
 
 const SalesRegisterReports = () => {
-    const { searchText, apiData, form, onSubmit, setSearchText, handleClearDates, startDate , loading } = UseSubmissionHistoryViewModel()
+    const { searchText, apiData, form, onSubmit, setSearchText, handleClearDates, startDate, loading } = UseSubmissionHistoryViewModel()
 
 
 
@@ -92,6 +93,13 @@ const SalesRegisterReports = () => {
 
 
     ];
+
+    const dataForExcel = filteredData.map((item) => ({
+    "Student Name": item.studentName,
+    "Course Applied": item.course,
+    "Eligibility Status": item.status,
+    "Date": formatDate(item.date),
+}));
 
 
 
@@ -214,25 +222,25 @@ const SalesRegisterReports = () => {
 
 
                                         <div className={`col-md-3  ${form.errors?.startDate || form.errors?.endDate ? "align-self-center" : "align-self-end"} `}>
-                                           <button
-    type="submit"
-    className="btn btn-primary me-1"
-    disabled={loading}
->
-    Filter
-</button>
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary me-1"
+                                                disabled={loading}
+                                            >
+                                                Filter
+                                            </button>
 
-<button
-    type="button"
-    className="btn btn-secondary me-1"
-    onClick={() => {
-        handleClearDates();
-        setSearchText("");
-    }}
-    disabled={loading}
->
-    Reset
-</button>
+                                            <button
+                                                type="button"
+                                                className="btn btn-secondary me-1"
+                                                onClick={() => {
+                                                    handleClearDates();
+                                                    setSearchText("");
+                                                }}
+                                                disabled={loading}
+                                            >
+                                                Reset
+                                            </button>
 
 
 
@@ -258,6 +266,16 @@ const SalesRegisterReports = () => {
                                         <h5 className="card-title mb-0">History</h5>
                                     </div>
                                     <div className="col-6 p-0 text-end">
+                                          {filteredData.length > 0 && (
+    <CSVLink
+        title="Export to Excel"
+        data={dataForExcel}
+        filename={`course_eligibility_${dayjs().format("YYYY-MM-DD")}.csv`}
+        className="btn btn-outline-secondary me-2"
+    >
+        <i className="bi bi-file-earmark-excel"></i> Download Excel
+    </CSVLink>
+)}
 
 
 
@@ -281,7 +299,7 @@ const SalesRegisterReports = () => {
                                         pageSize={10}
                                         className="custom-small-table text-nowrap"
                                         // size="small"
-                                            loading={loading}
+                                        loading={loading}
 
 
                                         //   className="text-nowrap"

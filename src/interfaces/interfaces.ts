@@ -96,6 +96,8 @@ export interface ResultPageState {
 export interface HeaderProps {
     toggleSidebar: () => void;
     sidebarOpen: boolean
+    isDarkMode: boolean;
+toggleTheme: () => void;
 }
 export interface ChildRouteInterface {
     path?: string;

@@ -4,6 +4,7 @@ import {
     getStudentHistory,
 } from "../controllers/studentController";
 import { validateStudent } from "../middleware/validateStudent";
+import { verifyToken } from "../middleware/authMiddleware";
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.post(
     checkStudentEligibility
 );
 
+// router.get("/history", verifyToken, getStudentHistory);
 router.get("/history", getStudentHistory);
 
 export default router;

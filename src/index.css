@@ -824,4 +824,88 @@ input[type="number"] {
 }
 
 
+/* ================= DARK THEME ================= */
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --bs-body-bg: #0b1220;
+    --bs-body-color: #e2e8f0;
+    --bs-border-color: #334155;
+}
+
+:root[data-theme="dark"] body {
+    background: #0b1220 !important;
+    color: #e2e8f0 !important;
+}
+
+:root[data-theme="dark"] .ant-layout {
+    background: #0b1220 !important;
+    color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .ant-card,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .page-header {
+    background: #172033 !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .card-header,
+:root[data-theme="dark"] .card-footer {
+    border-color: #334155 !important;
+    color: #e2e8f0;
+}
+
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4,
+:root[data-theme="dark"] h5,
+:root[data-theme="dark"] h6,
+:root[data-theme="dark"] label,
+:root[data-theme="dark"] p,
+:root[data-theme="dark"] span {
+    color: inherit;
+}
+
+:root[data-theme="dark"] .form-control,
+:root[data-theme="dark"] .form-select,
+:root[data-theme="dark"] .ant-input,
+:root[data-theme="dark"] .ant-select-selector {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+}
+
+:root[data-theme="dark"] .table-responsive .table {
+    color: #e2e8f0;
+    --bs-table-bg: #172033;
+    --bs-table-color: #e2e8f0;
+    --bs-table-border-color: #334155;
+}
+
+:root[data-theme="dark"] .footer {
+    background: #172033;
+}
+
+:root[data-theme="dark"] .footer .copyright,
+:root[data-theme="dark"] .footer .credits {
+    color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .dropdown-menu {
+    background: #172033;
+    color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .dropdown-item {
+    color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .dropdown-item:hover {
+    background: #334155;
+    color: #fff;
+}
+
 
