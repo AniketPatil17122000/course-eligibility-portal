@@ -32,7 +32,6 @@ export const UseSubmissionHistoryViewModel = () => {
         name: "startDate",
     });
 
-    // Fetch history from backend
     const getSalesRegisterReportList = async () => {
         try {
             setLoading(true);
@@ -92,7 +91,6 @@ export const UseSubmissionHistoryViewModel = () => {
         loadHistory();
     }, []);
 
-    // Apply date filter
     const onSubmit = (data: SubmissionFormInterface) => {
 
         const filtered = allApiData.filter((item) => {

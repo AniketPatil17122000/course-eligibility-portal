@@ -8,11 +8,9 @@ import {
 } from "@ant-design/icons";
 
 import "./Sidebar.css";
+import type { Props } from "../../../interfaces/interfaces";
 
-type Props = {
-    toggleSidebar: () => void;
-    sidebarOpen?: boolean;
-};
+
 
 type MenuItem = Required<MenuProps>["items"][number];
 

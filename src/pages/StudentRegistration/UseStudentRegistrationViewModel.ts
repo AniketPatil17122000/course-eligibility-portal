@@ -64,14 +64,14 @@ export const UseStudentRegistrationViewModel = () => {
                 },
             });
         } catch (error: any) {
-    console.error("Eligibility API Error:", error);
+            utilLog("Eligibility API Error:", error);
 
-    showSwal(
-        "error",
-        "Submission Failed",
-        error?.response?.data?.message || "Unable to check eligibility. Please try again."
-    );
-}finally {
+            showSwal(
+                "error",
+                "Submission Failed",
+                error?.response?.data?.message || "Unable to check eligibility. Please try again."
+            );
+        } finally {
             setLoading(false);
         }
     };

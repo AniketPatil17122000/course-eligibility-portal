@@ -81,9 +81,6 @@ const StudentRegistration = () => {
 
 
                                                 })}
-
-                                                // maxLength={10}
-                                                //   onKeyDown={allowOnlyTextInput}
                                                 isInvalid={!!form.errors.studentName}
                                             />
                                             <Form.Control.Feedback type="invalid">
@@ -98,36 +95,7 @@ const StudentRegistration = () => {
                                                 Age<span className="text-danger ms-1">*</span>
                                             </Form.Label>
 
-                                            {/* <Controller
-                                            name="age"
-                                            control={form.control}
-                                            rules={{
-                                                required: "Age is required",
-                                                min: {
-                                                    value: 17,
-                                                    message: "Minimum age is 17",
-                                                },
-                                                max: {
-                                                    value: 25,
-                                                    message: "Maximum age is 25",
-                                                },
-                                            }}
-                                            render={({ field }) => (
-                                                <InputNumber
-                                                    {...field}
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                    size="large"
-                                                    min={17}
-                                                    max={25}
-                                                    precision={0}
-                                                    placeholder="Enter age"
-                                                    className="w-100"
-                                                    status={form.errors.age ? "error" : ""}
-                                                />
-                                            )}
-                                        /> */}
-
+                                    
                                             <Form.Control
                                                 type="number"
 
@@ -150,8 +118,7 @@ const StudentRegistration = () => {
 
                                                 })}
 
-                                                // maxLength={10}
-                                                //   onKeyDown={allowOnlyTextInput}
+                                            
                                                 isInvalid={!!form.errors.age}
                                             />
 
@@ -169,25 +136,7 @@ const StudentRegistration = () => {
                                                 Gender<span className="text-danger ms-1">*</span>
                                             </Form.Label>
 
-                                            {/* <Controller
-                                            name="gender"
-                                            control={form.control}
-                                            rules={{ required: "Please select gender" }}
-                                            render={({ field }) => (
-                                                <Select
-                                                    {...field}
-                                                    size="large"
-                                                    placeholder="Select gender"
-                                                    className="w-100"
-                                                    status={form.errors.gender ? "error" : ""}
-                                                    options={[
-                                                        { label: "Male", value: "Male" },
-                                                        { label: "Female", value: "Female" },
-                                                        { label: "Other", value: "Other" },
-                                                    ]}
-                                                />
-                                            )}
-                                        /> */}
+                                        
 
                                             <Form.Select
 
@@ -733,18 +682,6 @@ const StudentRegistration = () => {
                         <div className="text-end">
 
 
-                            {/* <Button
-                                type="primary"
-                                variant="outlined"
-                                htmlType="submit"
-                                size="large"
-                                icon={<SendOutlined />
-
-                                }
-                                loading={form.formState.isSubmitting}
-                            >
-                                Check Eligibility
-                            </Button> */}
 
 
 
@@ -753,6 +690,7 @@ const StudentRegistration = () => {
                                 className="btn btn-secondary me-1 round"
                                 onClick={handleReset}
                                 disabled={loading}
+                                style={{ backgroundColor: "#6c757d", color: "#fff" }}
                             >
                                 Reset
                             </button>

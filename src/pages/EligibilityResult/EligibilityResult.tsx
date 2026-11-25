@@ -1,12 +1,10 @@
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import type { ResultPageState } from "../../interfaces/interfaces";
-import { COURSE_RULES } from "../../utils/eligibilityUtils";
+import { Link } from "react-router-dom";
+import { UseEligibilityResultViewModel } from "./UseEligibilityResultViewModel";
 
 const EligibilityResultPage = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const state = location.state as ResultPageState | null;
+        const { state , navigate ,student ,  result , getSubjectMarks , examQualified  , selectedCriteria , } = UseEligibilityResultViewModel()
+   
 
     if (!state?.student || !state?.result) {
         return (
@@ -36,29 +34,8 @@ const EligibilityResultPage = () => {
         );
     }
 
-    const { student, result } = state;
 
-    // Get selected course eligibility criteria
-    const selectedCriteria = COURSE_RULES.find(
-        (course) =>
-            course.name === student.desiredCourse &&
-            course.category === student.courseCategory
-    );
-
-    // Get marks for a required subject
-    const getSubjectMarks = (subject: string) => {
-        return student.subjects.find(
-            (item) => item.subject === subject
-        )?.marks ?? null;
-    };
-
-    // Get entrance exam qualification status
-    const examQualified =
-        selectedCriteria?.exam === "JEE"
-            ? student.jeeQualified
-            : selectedCriteria?.exam === "NEET"
-                ? student.neetQualified
-                : null;
+    
 
     return (
         <div id="main" className="main">
@@ -73,8 +50,6 @@ const EligibilityResultPage = () => {
             <section className="section">
 
                 <div className="row">
-
-                    {/* Student Details */}
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header p-2">
@@ -129,7 +104,7 @@ const EligibilityResultPage = () => {
                             <div className="card-body">
 
                                 {/* Required Subjects */}
-                                <h6 className="fw-semibold mb-3">
+                                <h6 className="fw-Normal mb-3 fs-6">
                                     Required Subjects & Marks
                                 </h6>
 

@@ -1,4 +1,3 @@
-import type { EligibilityResult } from "../utils/eligibilityUtils";
 
 export type CourseCategory =
     | "Engineering"
@@ -148,7 +147,78 @@ export type Tableprops = {
 
 }
 
+export type Props = {
+    toggleSidebar: () => void;
+    sidebarOpen?: boolean;
+};
 
+
+export interface LoginPayload {
+    email: string;
+    password: string;
+}
+
+export interface LoginResponse {
+    success: boolean;
+    message: string;
+    data: {
+        token: string;
+        admin: {
+            id: string;
+            email: string;
+        };
+    };
+}
+
+export interface EligibilityApiResponse {
+    success: boolean;
+    message: string;
+    data: {
+        student: StudentFormData;
+        result: EligibilityResult;
+    };
+}
+
+
+export interface StudentHistoryRecord {
+    _id: string;
+    studentName: string;
+    desiredCourse: string;
+    isEligible: boolean;
+    createdAt: string;
+}
+
+export interface StudentHistoryResponse {
+    success: boolean;
+    message: string;
+    data: StudentHistoryRecord[];
+}
+
+export interface EligibilityInput {
+    subjects: {
+        subject: string;
+        marks: number | null;
+    }[];
+    jeeQualified: boolean | null;
+    neetQualified: boolean | null;
+    courseCategory: CourseCategory;
+    desiredCourse: string;
+}
+
+export interface CourseRule {
+    name: string;
+    category: CourseCategory;
+    requiredSubjects: string[];
+    exam?: "JEE" | "NEET";
+    cutoff?: number;
+}
+
+export interface EligibilityResult {
+    isEligible: boolean;
+    reason: string;
+    averageMarks: number;
+    recommendedCourses: string[];
+}
 
 
 

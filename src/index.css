@@ -68,13 +68,6 @@ a {
 
 
 
-/* log in css */
-
-
-
-
-
-
 h5 {
   color: #012970;
   /* choose your color */
@@ -581,72 +574,7 @@ h6 {
 
 /**Page Header****************************/
 
-.branch-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 8px 16px;
-  align-items: center;
-}
 
-.branch-item {
-  /* Optional: align checkbox and label nicely */
-  display: flex;
-  align-items: center;
-}
-
-.activeTabSelected {
-  background-color: #0a58ca;
-  color: #ffff;
-}
-
-.activeTabSelectedHover:hover {
-  background-color: #0a58ca !important;
-  color: #ffff !important;
-}
-
-.inActiveTabSelected {
-  background-color: #C9D2E7;
-  color: black !important;
-}
-
-
-/**Sales Forcasting***********************************************************/
-.accordion-button {
-  color: #283c50;
-  font-size: 0.813rem !important;
-  font-weight: 600;
-  padding: .6rem .8rem;
-}
-
-.accordion-button:not(.collapsed) {
-  background-color: transparent;
-}
-
-.accordion-body {
-  padding: 0.6rem;
-}
-
-.accordion-button::after {
-  width: 1rem;
-  height: 1rem;
-  background-size: 1rem;
-}
-
-
-.accordion-body .table-responsive .table tfoot th,
-.accordion-body .table-responsive .table thead th {
-  padding: 8px 15px;
-  color: #111F36;
-  font-size: 10px;
-  font-weight: 700;
-  background-color: #ffffff;
-}
-
-.accordion-body .table-responsive .table tr td:first-child {
-  padding-left: 15px;
-}
-
-/**Sales Forcasting***********************************************************/
 
 
 
@@ -773,55 +701,9 @@ input[type="number"] {
 
 
 
-.report-card {
-  /* border-radius: 12px; */
-  transition: 0.3s;
-  background-color: #EDF1FC;
-  margin-bottom:12px;
-   
-  
-}
-
-.report-card h6 {
-  
-    font-size: 0.813rem !important;
-}
 
 
 
-.report-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.15);
-  background-color: #0a58ca;
-  color: white;
-  cursor: pointer;
-
-
- 
-
-  
-}
-.report-icon{
-  /* width:42px;
-  height:42px;
-  min-width: 42px;
-  max-width: 42px;
-  min-height: 42px;
-  max-height: 42px; */
-}
-        .report-card:hover .report-icon img {
-   filter: brightness(0) invert(1);
-   opacity: 0.8;
-}
-
-.invalid-material-row > td {
-    background-color: #ffccc7 !important;
-    border-bottom-color: #ffccc7 !important;
-}
-
-.invalid-material-row:hover > td {
-    background-color: #ffccc7 !important;
-}
 
 
 /* ================= DARK THEME ================= */
@@ -906,6 +788,88 @@ input[type="number"] {
 :root[data-theme="dark"] .dropdown-item:hover {
     background: #334155;
     color: #fff;
+}
+
+
+.light {
+    --text-color: #212529;
+    --bg-color: #ffffff;
+}
+
+.dark {
+    --text-color: #f1f1f1;
+    --bg-color: #0b0d12;
+}
+
+body {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.theme-text {
+    color: var(--text-color);
+}
+
+/* Dark mode Ant Design Cards */
+[data-theme="dark"] .ant-card {
+    background-color: #1c1c1c;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .ant-card-head {
+    border-bottom-color: #444;
+}
+
+[data-theme="dark"] .ant-card-head-title,
+[data-theme="dark"] .ant-card-body {
+    color: #ffffff;
+}
+
+/* Dark mode table */
+[data-theme="dark"] .ant-table {
+    background-color: #1c1c1c;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .ant-table-thead > tr > th {
+    background-color: #292929 !important;
+    color: #ffffff !important;
+    border-bottom-color: #444 !important;
+}
+
+[data-theme="dark"] .ant-table-tbody > tr > td {
+    background-color: #1c1c1c;
+    color: #ffffff;
+    border-bottom-color: #444;
+}
+
+/* Hover row */
+[data-theme="dark"] .ant-table-tbody > tr:hover > td {
+    background-color: #333333 !important;
+}
+
+/* Empty state */
+[data-theme="dark"] .ant-empty-description {
+    color: #ffffff;
+}
+
+/* Pagination */
+[data-theme="dark"] .ant-pagination-item a {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .ant-pagination-item {
+    background-color: #292929;
+    border-color: #555;
+}
+
+[data-theme="dark"] .ant-pagination-item-active {
+    border-color: #ddb937;
+}
+
+/* Table borders */
+[data-theme="dark"] .ant-table-container table > thead > tr:first-child > *:last-child {
+    border-inline-end-color: #444;
 }
 
 

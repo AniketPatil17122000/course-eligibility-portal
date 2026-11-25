@@ -57,22 +57,22 @@ describe("Eligibility Service Tests", () => {
         expect(result.reason).toContain("JEE qualification is required");
     });
 
-it("should approve an eligible Medicine student", () => {
-    const result = checkEligibility(
-        createStudent({
-            courseCategory: "Medicine",
-            desiredCourse: "MBBS",
-            subjects: [
-                { subject: "Physics", marks: 90 },
-                { subject: "Chemistry", marks: 90 },
-                { subject: "Biology", marks: 90 },
-            ],
-        })
-    );
+    it("should approve an eligible Medicine student", () => {
+        const result = checkEligibility(
+            createStudent({
+                courseCategory: "Medicine",
+                desiredCourse: "MBBS",
+                subjects: [
+                    { subject: "Physics", marks: 90 },
+                    { subject: "Chemistry", marks: 90 },
+                    { subject: "Biology", marks: 90 },
+                ],
+            })
+        );
 
-    expect(result.isEligible).toBe(true);
-    expect(result.averageMarks).toBe(90);
-});
+        expect(result.isEligible).toBe(true);
+        expect(result.averageMarks).toBe(90);
+    });
 
     it("should reject student who has not qualified NEET", () => {
         const result = checkEligibility(

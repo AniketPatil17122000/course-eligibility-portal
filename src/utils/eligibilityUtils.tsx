@@ -1,31 +1,8 @@
+import type { CourseRule, EligibilityInput, EligibilityResult } from "../interfaces/interfaces";
 
 export type CourseCategory = string;
 
-interface EligibilityInput {
-    subjects: {
-        subject: string;
-        marks: number | null;
-    }[];
-    jeeQualified: boolean | null;
-    neetQualified: boolean | null;
-    courseCategory: CourseCategory;
-    desiredCourse: string;
-}
 
-export interface CourseRule {
-    name: string;
-    category: CourseCategory;
-    requiredSubjects: string[];
-    exam?: "JEE" | "NEET";
-    cutoff?: number;
-}
-
-export interface EligibilityResult {
-    isEligible: boolean;
-    reason: string;
-    averageMarks: number;
-    recommendedCourses: string[];
-}
 
 export const COURSE_RULES: CourseRule[] = [
     // Engineering

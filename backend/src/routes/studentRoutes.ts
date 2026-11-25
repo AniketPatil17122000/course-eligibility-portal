@@ -4,7 +4,7 @@ import {
     getStudentHistory,
 } from "../controllers/studentController";
 import { validateStudent } from "../middleware/validateStudent";
-import { verifyToken } from "../middleware/authMiddleware";
+// import { verifyToken } from "../middleware/authMiddleware";
 
 const router = Router();
 

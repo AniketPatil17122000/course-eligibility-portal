@@ -54,24 +54,13 @@ const SalesRegisterReports = () => {
             title: "Student Name",
             dataIndex: "studentName",
             key: "studentName",
-            // align: "center",
 
-            // width: "20%",
-            // render: (_: any, record: OrdrlistInterface) => (
-            //     <button
-            //         className="text-primary cursor-pointer me-3 btn"
-            //         title="View"
-            //         onClick={() => handleNavigateApporder(record)}
-            //     >
-            //         {record?.appOrderNo} <i className="bi bi-file-earmark-text"></i>
-            //     </button>
-            // ),
         },
         {
             title: "Course Applied",
             dataIndex: "course",
             key: "course",
-            // align: "center",
+
 
 
         },
@@ -95,16 +84,14 @@ const SalesRegisterReports = () => {
     ];
 
     const dataForExcel = filteredData.map((item) => ({
-    "Student Name": item.studentName,
-    "Course Applied": item.course,
-    "Eligibility Status": item.status,
-    "Date": formatDate(item.date),
-}));
+        "Student Name": item.studentName,
+        "Course Applied": item.course,
+        "Eligibility Status": item.status,
+        "Date": formatDate(item.date),
+    }));
 
 
 
-
-    /* ---------------- JSX ---------------- */
     return (
         <div id="main" className="main">
 
@@ -122,9 +109,7 @@ const SalesRegisterReports = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
-                                {/* <!-- <div className="card-header">
-                                        <h5 className="card-title mb-0">Order Status List</h5>
-                                    </div> --> */}
+                    
                                 <div className="card-body">
                                     <div className="row g-3">
 
@@ -175,10 +160,7 @@ const SalesRegisterReports = () => {
                                                             return CONSTANTS.END_DATE_ERRROR_MESSAGE;
                                                         }
 
-                                                        // if (end.diff(start, "day") > 30) {
-                                                        //     return "Date range cannot exceed 30 days";
-                                                        // }
-
+                                                      
                                                         return true;
                                                     }
 
@@ -249,12 +231,7 @@ const SalesRegisterReports = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <!-- <div className="card-footer">
-                                        <div className="text-end">
-                                            <button type="reset" className="btn btn-secondary round">Reset</button>
-                                            <button type="submit" className="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div> --> */}
+                            
                             </div>
                         </div>
 
@@ -266,16 +243,16 @@ const SalesRegisterReports = () => {
                                         <h5 className="card-title mb-0">History</h5>
                                     </div>
                                     <div className="col-6 p-0 text-end">
-                                          {filteredData.length > 0 && (
-    <CSVLink
-        title="Export to Excel"
-        data={dataForExcel}
-        filename={`course_eligibility_${dayjs().format("YYYY-MM-DD")}.csv`}
-        className="btn btn-outline-secondary me-2"
-    >
-        <i className="bi bi-file-earmark-excel"></i> Download Excel
-    </CSVLink>
-)}
+                                        {filteredData.length > 0 && (
+                                            <CSVLink
+                                                title="Export to Excel"
+                                                data={dataForExcel}
+                                                filename={`course_eligibility_${dayjs().format("YYYY-MM-DD")}.csv`}
+                                                className="btn btn-outline-secondary me-2"
+                                            >
+                                                <i className="bi bi-file-earmark-excel"></i> Download Excel
+                                            </CSVLink>
+                                        )}
 
 
 

@@ -6,11 +6,9 @@ import SubmissionHistory from "../pages/SubmissionHistory/SubmissionHistory";
 import EligibilityResultPage from "../pages/EligibilityResult/EligibilityResult";
 import LayoutMain from "../components/layout/MainLayout/MainLayout";
 
-
-
-
-
+ 
 export const routeConfig: RouteInterface[] = [
+  
 
 
   {

@@ -112,3 +112,34 @@ export const loginAdmin = async (req: Request, res: Response) => {
         });
     }
 };
+
+
+export const getAdminProfile = async (
+    req: Request,
+    res: Response
+) => {
+    try {
+        const admin = await Admin.findById(req.adminId).select("-password");
+
+        if (!admin) {
+            return res.status(404).json({
+                success: false,
+                message: "Admin not found",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Admin profile fetched successfully",
+            data: admin,
+        });
+
+    } catch (error) {
+        console.error("Admin profile error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to fetch admin profile",
+        });
+    }
+};
